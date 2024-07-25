@@ -1,5 +1,6 @@
 package com.dio.web.api.repository;
 
+import com.dio.web.api.handler.BusinessException;
 import com.dio.web.api.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,10 @@ import java.util.List;
 @Repository
 public class UserRepository {
     public void save(User user) {
+
+        if (user.getLogin() == null)
+            throw new BusinessException("Login field is required");
+
         if (user.getId() == null) {
             System.out.println("SAVE - Recebendo o usuário na camada de repositório");
         } else {
